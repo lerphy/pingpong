@@ -41,11 +41,14 @@
     .right {
       justify-content: center;
     }
-    .vertical-line {
+     .vertical-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
       width: 2px;
+      height: 100vh;
       background-color: white;
-      height: 75vh;
-      align-self: center;
       z-index: 1;
     }
     .under-construction-text {
