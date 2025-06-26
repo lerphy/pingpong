@@ -32,7 +32,6 @@
       border: 2px solid white;
       box-sizing: border-box;
     }
-    /* Vertical line */
     .vertical-line {
       position: absolute;
       left: 50%;
@@ -43,7 +42,6 @@
       background-color: white;
       z-index: 1;
     }
-    /* Site Under Construction - Top Left */
     .under-construction-text {
       position: absolute;
       top: 1.5rem;
@@ -65,7 +63,6 @@
       box-sizing: border-box;
       z-index: 2;
     }
-    /* Main text in the center-left */
     .english {
       color: white;
       font-size: 1.1rem;
@@ -73,7 +70,6 @@
       max-width: 600px;
       text-align: left;
     }
-    /* The PINGPONG FAMILY heading on center-right */
     .norwegian {
       color: white;
       font-size: 1.1rem;
@@ -81,8 +77,6 @@
       max-width: 600px;
       text-align: left;
     }
-
-    /* White scrollbar for WebKit browsers */
     ::-webkit-scrollbar {
       width: 12px;
       background: #fff;
@@ -95,14 +89,12 @@
     ::-webkit-scrollbar-track {
       background: #fff;
     }
-
-    /* Firefox white scrollbar */
     * {
       scrollbar-width: thin;
       scrollbar-color: #fff #fff;
     }
 
-    /* Bottom-right mailto link style */
+    /* Mailto link bottom right */
     .mailto-link {
       position: fixed;
       right: 2rem;
@@ -111,7 +103,7 @@
       text-decoration: underline;
       font-family: Arial, sans-serif;
       font-size: 1rem;
-      z-index: 10;
+      z-index: 1001;
       transition: color 0.2s;
     }
     .mailto-link:hover,
@@ -119,7 +111,21 @@
       color: #2563eb; /* blue */
     }
 
-    /* Mobile layout */
+    /* Cursor shadow */
+    #cursor-shadow {
+      position: fixed;
+      pointer-events: none;
+      width: 48px;
+      height: 48px;
+      background: rgba(37, 99, 235, 0.15);
+      border-radius: 50%;
+      box-shadow: 0 0 24px 12px rgba(37, 99, 235, 0.25);
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      transition: left 0.08s, top 0.08s;
+      will-change: left, top;
+    }
+
     @media (max-width: 800px) {
       .container {
         flex-direction: column;
@@ -134,7 +140,7 @@
       }
       .under-construction-text {
         position: static;
-        margin: 0 auto 1.5rem auto;
+        margin: 2rem auto 1.2rem auto;
         display: block;
         text-align: center;
       }
@@ -151,14 +157,14 @@
         width: 90vw;
         max-width: 95vw;
         font-size: 1rem;
-        padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+        padding: 1.2rem 1rem 1.2rem 1rem;
       }
       .norwegian {
         margin: 0 auto 1.5rem auto;
         width: 90vw;
         max-width: 95vw;
         font-size: 1rem;
-        padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+        padding: 1.2rem 1rem 1.2rem 1rem;
       }
       body {
         border: 2px solid white;
@@ -170,6 +176,10 @@
         right: 1rem;
         bottom: 1rem;
         font-size: 0.95rem;
+      }
+      #cursor-shadow {
+        width: 32px;
+        height: 32px;
       }
     }
   </style>
@@ -192,7 +202,7 @@
     <div class="vertical-line"></div>
     <div class="side right">
       <div class="norwegian">
-       <strong>THE PINGPONG FAMILY</strong><br />
+        <strong>THE PINGPONG FAMILY</strong><br />
         <p>Vi er ikke en klubb. Vi er ikke et lag. Vi er en løst sammenskrudd gjeng som digger å spille bordtennis ute når vi føler for det. Null stress. Null forpliktelser.<br /><br />
         Vi har akkurat starta, og det første bordet vårt står ved Ilen kirke. Det er gratis. Det er åpent. Det er for alle. Kom som du er, spill med hvem som helst, bli så lenge du gidder.<br /><br />
         Ingen kontingent. Ingen medlemskap. Bare folk som liker å spille litt og slå av en prat. Det handler om latter, tull, samhold, og en og annen altfor hard serve.<br /><br />
@@ -202,29 +212,14 @@
     </div>
   </div>
   <a href="mailto:pingpongfamily.trd@gmail.com" class="mailto-link">Feel free to say hello</a>
-<!-- Add this just before </body> -->
-<div id="cursor-shadow"></div>
-<script>
-document.addEventListener('mousemove', function(e) {
-  const shadow = document.getElementById('cursor-shadow');
-  shadow.style.left = e.clientX + 'px';
-  shadow.style.top = e.clientY + 'px';
-});
-</script>
-<style>
-#cursor-shadow {
-  position: fixed;
-  pointer-events: none;
-  width: 40px;
-  height: 40px;
-  background: rgba(37, 99, 235, 0.2); /* blue with some transparency */
-  border-radius: 50%;
-  box-shadow: 0 0 16px 8px rgba(37, 99, 235, 0.25); /* blurred blue shadow */
-  transform: translate(-50%, -50%);
-  z-index: 10000;
-  transition: left 0.05s, top 0.05s;
-}
-</style>
-
+  <div id="cursor-shadow"></div>
+  <script>
+    // Cursor shadow effect
+    document.addEventListener('mousemove', function(e) {
+      var shadow = document.getElementById('cursor-shadow');
+      shadow.style.left = e.clientX + 'px';
+      shadow.style.top = e.clientY + 'px';
+    });
+  </script>
 </body>
 </html>
