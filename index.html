@@ -134,7 +134,7 @@
       }
       .under-construction-text {
         position: static;
-        margin: 2rem auto 1.2rem auto;
+        margin: 0 auto 1.5rem auto;
         display: block;
         text-align: center;
       }
@@ -151,14 +151,14 @@
         width: 90vw;
         max-width: 95vw;
         font-size: 1rem;
-        padding: 1.2rem 1rem 1.2rem 1rem;
+        padding: 1.2rem 1.2rem 1.2rem 1.2rem;
       }
       .norwegian {
         margin: 0 auto 1.5rem auto;
         width: 90vw;
         max-width: 95vw;
         font-size: 1rem;
-        padding: 1.2rem 1rem 1.2rem 1rem;
+        padding: 1.2rem 1.2rem 1.2rem 1.2rem;
       }
       body {
         border: 2px solid white;
@@ -202,5 +202,29 @@
     </div>
   </div>
   <a href="mailto:pingpongfamily.trd@gmail.com" class="mailto-link">Feel free to say hello</a>
+<!-- Add this just before </body> -->
+<div id="cursor-shadow"></div>
+<script>
+document.addEventListener('mousemove', function(e) {
+  const shadow = document.getElementById('cursor-shadow');
+  shadow.style.left = e.clientX + 'px';
+  shadow.style.top = e.clientY + 'px';
+});
+</script>
+<style>
+#cursor-shadow {
+  position: fixed;
+  pointer-events: none;
+  width: 40px;
+  height: 40px;
+  background: rgba(37, 99, 235, 0.2); /* blue with some transparency */
+  border-radius: 50%;
+  box-shadow: 0 0 16px 8px rgba(37, 99, 235, 0.25); /* blurred blue shadow */
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  transition: left 0.05s, top 0.05s;
+}
+</style>
+
 </body>
 </html>
