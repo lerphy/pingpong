@@ -29,7 +29,7 @@
       flex-direction: row;
       height: 100vh;
       width: 100vw;
-      border: 2px solid white;      /* ADDED: White border, same as center bar */
+      border: 2px solid white;
       box-sizing: border-box;
     }
     /* Vertical line */
@@ -90,7 +90,7 @@
     ::-webkit-scrollbar-thumb {
       background: #fff;
       border-radius: 6px;
-      border: 2px solid #ccc; /* subtle border for visibility */
+      border: 2px solid #ccc;
     }
     ::-webkit-scrollbar-track {
       background: #fff;
@@ -102,6 +102,23 @@
       scrollbar-color: #fff #fff;
     }
 
+    /* Bottom-right mailto link style */
+    .mailto-link {
+      position: fixed;
+      right: 2rem;
+      bottom: 2rem;
+      color: white;
+      text-decoration: underline;
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      z-index: 10;
+      transition: color 0.2s;
+    }
+    .mailto-link:hover,
+    .mailto-link:focus {
+      color: #2563eb; /* blue */
+    }
+
     /* Mobile layout */
     @media (max-width: 800px) {
       .container {
@@ -110,7 +127,7 @@
         justify-content: flex-start;
         height: 100vh;
         width: 100vw;
-        border: none;           /* Remove container border on mobile */
+        border: none;
       }
       .vertical-line {
         display: none;
@@ -149,14 +166,18 @@
         min-width: 100vw;
         box-sizing: border-box;
       }
+      .mailto-link {
+        right: 1rem;
+        bottom: 1rem;
+        font-size: 0.95rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="under-construction-text">
-    SITE UNDER CONSTRUCTION
-    <p><a href="mailto:pingpongfamily.trd@gmail.com">Feel free to say hello</a></p>
+      SITE UNDER CONSTRUCTION
     </div>
     <div class="side left">
       <div class="english">
@@ -180,5 +201,6 @@
       </div>
     </div>
   </div>
+  <a href="mailto:pingpongfamily.trd@gmail.com" class="mailto-link">Feel free to say hello</a>
 </body>
 </html>
