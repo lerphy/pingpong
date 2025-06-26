@@ -26,10 +26,11 @@
     .container {
       position: relative;
       display: flex;
-      border: 2px solid white;
       flex-direction: row;
       height: 100vh;
       width: 100vw;
+      border: 2px solid white;      /* ADDED: White border, same as center bar */
+      box-sizing: border-box;
     }
     /* Vertical line */
     .vertical-line {
@@ -52,7 +53,8 @@
       letter-spacing: 2px;
       z-index: 2;
       max-width: 90vw;
-      text-align: left;    }
+      text-align: left;
+    }
     .side {
       flex: 1 1 0;
       display: flex;
@@ -82,6 +84,26 @@
       text-align: left;
     }
 
+    /* White scrollbar for WebKit browsers */
+    ::-webkit-scrollbar {
+      width: 12px;
+      background: #fff;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #fff;
+      border-radius: 6px;
+      border: 2px solid #ccc; /* subtle border for visibility */
+    }
+    ::-webkit-scrollbar-track {
+      background: #fff;
+    }
+
+    /* Firefox white scrollbar */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #fff #fff;
+    }
+
     /* Mobile layout */
     @media (max-width: 800px) {
       .container {
@@ -90,6 +112,7 @@
         justify-content: flex-start;
         height: 100vh;
         width: 100vw;
+        border: none;           /* Remove container border on mobile */
       }
       .vertical-line {
         display: none;
