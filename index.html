@@ -32,7 +32,6 @@
       box-sizing: border-box;
       overflow: hidden;
     }
-    /* Vertical line for top section */
     .vertical-line {
       position: absolute;
       left: 50%;
@@ -43,7 +42,6 @@
       background-color: white;
       z-index: 1;
     }
-    /* Horizontal line for bottom section */
     .horizontal-line {
       position: absolute;
       left: 0;
@@ -64,6 +62,7 @@
       z-index: 2;
       max-width: 90vw;
       text-align: left;
+      font-weight: bold;
     }
     .side {
       flex: 1 1 0;
@@ -78,79 +77,58 @@
     .side.left {
       justify-content: flex-start;
     }
-    .english {
-      color: white;
-      font-size: 1.1rem;
-      margin-left: 1.5rem;
-      padding: 1.5rem 1.2rem 1.2rem 0;
-      max-width: 600px;
-      text-align: left;
-    }
-    .norwegian {
+    .english, .norwegian, .links-content {
       color: white;
       font-size: 1.1rem;
       padding: 1.5rem 1.2rem 1.2rem 1.2rem;
       max-width: 600px;
       text-align: left;
-    }
-
-    /* Bottom section links styling (like "norwegian" class) */
-    .bottom-links-container {
-      position: absolute;
-      left: 0;
-      top: 2.5rem;
-      width: 100vw;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      pointer-events: auto;
+      margin-left: 1.5rem;
+      margin-right: 0; /* no right margin so it aligns left */
+      box-sizing: border-box;
     }
     .links-content {
-      color: white;
+      margin-left: 1.5rem;
+      margin-right: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
       font-size: 1.1rem;
-      padding: 1.5rem 1.2rem 1.2rem 1.2rem;
-      max-width: 600px;
-      text-align: left;
-      margin: 0 auto;
-      background: none;
-      border: none;
-      box-shadow: none;
+      padding-top: 1.5rem;
+      padding-bottom: 1.2rem;
+      padding-right: 1.2rem;
+      padding-left: 1.2rem;
     }
-    .links-title {
+    .link-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+    }
+    .link-label {
       font-weight: bold;
-      font-size: 1.25rem;
-      letter-spacing: 2px;
-      margin-bottom: 1.2rem;
+      min-width: 150px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      color: white;
     }
-    .links-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .links-list li {
-      margin-bottom: 0.8rem;
-      line-height: 1.4;
-    }
-    .links-list a {
+    .link-url {
       color: #fff;
       text-decoration: underline;
       word-break: break-all;
       transition: color 0.2s;
+      font-weight: normal;
     }
-    .links-list a:hover,
-    .links-list a:focus {
+    .link-url:hover,
+    .link-url:focus {
       color: #2563eb;
     }
 
-    /* Mailto link in bottom section */
     .mailto-link-bottom {
       position: absolute;
       left: 0;
       right: 0;
-      /* Vertically center in bottom half */
-      top: 60%;
+      top: calc(50% + 32px);
+      height: calc(50% - 32px);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -163,7 +141,6 @@
       font-family: Arial, sans-serif;
       font-size: 1rem;
       transition: color 0.2s;
-      margin: 0 auto;
       text-align: center;
     }
     .mailto-link-bottom a:hover,
@@ -171,7 +148,6 @@
       color: #2563eb;
     }
 
-    /* Scroll down triangle */
     .scroll-down-indicator {
       position: fixed;
       right: 2rem;
@@ -187,6 +163,7 @@
       border: none;
       outline: none;
       transition: background 0.2s;
+      /* Triangle rotation will be handled with a child class */
     }
     .scroll-down-indicator:hover,
     .scroll-down-indicator:focus {
@@ -203,9 +180,11 @@
       pointer-events: none;
       user-select: none;
       line-height: 28px;
+      transition: transform 0.4s cubic-bezier(.77,0,.18,1.09);
     }
-
-    /* Cursor shadow */
+    .triangle.up {
+      transform: rotate(180deg);
+    }
     #cursor-shadow {
       position: fixed;
       pointer-events: none;
@@ -264,32 +243,15 @@
         align-items: flex-start;
         margin: 0;
       }
-      .english {
-        margin: 0 auto 1.5rem auto;
+      .english, .norwegian, .links-content {
         width: 90vw;
         max-width: 95vw;
         font-size: 1rem;
         padding: 1.2rem 1rem 1.2rem 1rem;
-      }
-      .norwegian {
-        margin: 0 auto 1.5rem auto;
-        width: 90vw;
-        max-width: 95vw;
-        font-size: 1rem;
-        padding: 1.2rem 1rem 1.2rem 1rem;
-      }
-      .bottom-links-container {
-        position: static;
-        width: 100vw;
-        margin: 2rem 0 0 0;
-        padding: 0;
-        align-items: center;
+        margin-left: 0;
       }
       .links-content {
-        width: 90vw;
-        max-width: 95vw;
-        font-size: 1rem;
-        padding: 1.2rem 1rem 1.2rem 1rem;
+        margin-left: 0;
       }
       .mailto-link-bottom {
         position: static;
@@ -298,6 +260,7 @@
         left: auto;
         right: auto;
         width: 100vw;
+        height: auto;
       }
       .scroll-down-indicator {
         right: 1rem;
@@ -327,16 +290,22 @@
   <!-- Top section with vertical line -->
   <div class="section" id="top-section">
     <div class="under-construction-text">
-      SITE UNDER CONSTRUCTION
+      <span class="link-label">SITE UNDER CONSTRUCTION</span>
     </div>
     <div class="side left">
       <div class="english">
-        <strong>THE PINGPONG FAMILY</strong><br />
-        <p>We are not a club. We are not a team. We are a loosely knit group of people who love to play table tennis outdoors whenever we feel like it. No stress. No obligations.<br /><br />
-        We've just started, and our first table is by Ilen Church. It's free. It's open. It's for everyone. Come as you are, play with anyone, stay as long as you like.<br /><br />
-        No fees. No membership. Just people who like to play a little and have a chat. It's about laughter, fun, camaraderie, and the occasional overly hard serve.<br /><br />
-        We believe in small gatherings that build big things: friendship, belonging, and a great atmosphere.<br /><br />
-        Ping. Pong. People. Done.</p>
+        <div class="link-row">
+          <span class="link-label">@pingpongfamily.trd:</span>
+          <a class="link-url" href="https://www.instagram.com/pingpongfamily.trd/" target="_blank" rel="noopener">https://www.instagram.com/pingpongfamily.trd/</a>
+        </div>
+        <div class="link-row">
+          <span class="link-label">Pingpong Oslo:</span>
+          <a class="link-url" href="https://tv.nrk.no/program/KOID75005524" target="_blank" rel="noopener">https://tv.nrk.no/program/KOID75005524</a>
+        </div>
+        <div class="link-row">
+          <span class="link-label">Lån av tur- og sportsutstyr (Trondheim):</span>
+          <a class="link-url" href="https://www.trondheim.kommune.no/tema/kultur-og-fritid/park-og-mark/lan-av-tur--og-sportsutstyr/" target="_blank" rel="noopener">https://www.trondheim.kommune.no/tema/kultur-og-fritid/park-og-mark/lan-av-tur--og-sportsutstyr/</a>
+        </div>
       </div>
     </div>
     <div class="vertical-line"></div>
@@ -353,23 +322,18 @@
   </div>
   <!-- Bottom section: links only above the horizontal line, mailto centered below -->
   <div class="section" id="bottom-section">
-    <div class="bottom-links-container">
-      <div class="links-content">
-        <div class="links-title">Links:</div>
-        <ul class="links-list">
-          <li>
-            @pingpongfamily.trd: 
-            <a href="https://www.instagram.com/pingpongfamily.trd/" target="_blank" rel="noopener">https://www.instagram.com/pingpongfamily.trd/</a>
-          </li>
-          <li>
-            Pingpong Oslo: 
-            <a href="https://tv.nrk.no/program/KOID75005524" target="_blank" rel="noopener">https://tv.nrk.no/program/KOID75005524</a>
-          </li>
-          <li>
-            Lån av tur- og sportsutstyr (Trondheim): 
-            <a href="https://www.trondheim.kommune.no/tema/kultur-og-fritid/park-og-mark/lan-av-tur--og-sportsutstyr/" target="_blank" rel="noopener">https://www.trondheim.kommune.no/tema/kultur-og-fritid/park-og-mark/lan-av-tur--og-sportsutstyr/</a>
-          </li>
-        </ul>
+    <div class="links-content">
+      <div class="link-row">
+        <span class="link-label">@pingpongfamily.trd:</span>
+        <a class="link-url" href="https://www.instagram.com/pingpongfamily.trd/" target="_blank" rel="noopener">https://www.instagram.com/pingpongfamily.trd/</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">Pingpong Oslo:</span>
+        <a class="link-url" href="https://tv.nrk.no/program/KOID75005524" target="_blank" rel="noopener">https://tv.nrk.no/program/KOID75005524</a>
+      </div>
+      <div class="link-row">
+        <span class="link-label">Lån av tur- og sportsutstyr (Trondheim):</span>
+        <a class="link-url" href="https://www.trondheim.kommune.no/tema/kultur-og-fritid/park-og-mark/lan-av-tur--og-sportsutstyr/" target="_blank" rel="noopener">https://www.trondheim.kommune.no/tema/kultur-og-fritid/park-og-mark/lan-av-tur--og-sportsutstyr/</a>
       </div>
     </div>
     <div class="horizontal-line"></div>
@@ -377,9 +341,9 @@
       <a href="mailto:pingpongfamily.trd@gmail.com">Feel free to drop us a ball</a>
     </div>
   </div>
-  <!-- Scroll down triangle indicator -->
+  <!-- Scroll down/up triangle indicator -->
   <button class="scroll-down-indicator" id="scroll-down-indicator" aria-label="Scroll down for more">
-    <span class="triangle">&#9660;</span>
+    <span class="triangle" id="triangle">&#9660;</span>
   </button>
   <div id="cursor-shadow"></div>
   <script>
@@ -390,12 +354,46 @@
       shadow.style.top = e.clientY + 'px';
     });
 
-    // Scroll down button
-    document.getElementById('scroll-down-indicator').addEventListener('click', function() {
-      var bottom = document.getElementById('bottom-section');
-      // Use scrollIntoView with smooth behavior
-      bottom.scrollIntoView({behavior: "smooth"});
+    // Scroll down/up button
+    const scrollBtn = document.getElementById('scroll-down-indicator');
+    const triangle = document.getElementById('triangle');
+    let atBottom = false;
+    function scrollToBottomSection() {
+      document.getElementById('bottom-section').scrollIntoView({behavior: "smooth"});
+    }
+    function scrollToTopSection() {
+      document.getElementById('top-section').scrollIntoView({behavior: "smooth"});
+    }
+    function updateTriangleDirection() {
+      if (atBottom) {
+        triangle.classList.add('up');
+      } else {
+        triangle.classList.remove('up');
+      }
+    }
+    // Detect scroll position for up/down logic
+    function checkScrollPosition() {
+      // Consider at bottom if more than halfway down
+      const scrollY = window.scrollY || window.pageYOffset;
+      const vh = window.innerHeight;
+      if (scrollY > vh / 1.5) {
+        atBottom = true;
+      } else {
+        atBottom = false;
+      }
+      updateTriangleDirection();
+    }
+    scrollBtn.addEventListener('click', function() {
+      if (!atBottom) {
+        scrollToBottomSection();
+      } else {
+        scrollToTopSection();
+      }
     });
+    window.addEventListener('scroll', checkScrollPosition);
+    window.addEventListener('resize', checkScrollPosition);
+    // Initialize
+    checkScrollPosition();
   </script>
 </body>
 </html>
