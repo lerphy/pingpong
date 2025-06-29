@@ -19,10 +19,7 @@
       box-sizing: border-box;
     }
     body {
-      height: 100vh;
-      width: 100vw;
       box-sizing: border-box;
-      /* Allow scrolling for two sections */
       overflow-y: auto;
     }
     .section {
@@ -57,7 +54,6 @@
       background-color: white;
       z-index: 1;
     }
-    /* Site Under Construction - Top Left */
     .under-construction-text {
       position: absolute;
       top: 1.5rem;
@@ -97,6 +93,46 @@
       max-width: 600px;
       text-align: left;
     }
+    .bottom-links-container {
+      position: absolute;
+      top: 2.5rem;
+      left: 0;
+      width: 100vw;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      pointer-events: auto;
+    }
+    .links-title {
+      color: white;
+      font-weight: bold;
+      font-size: 1.25rem;
+      margin-bottom: 1.2rem;
+      letter-spacing: 2px;
+    }
+    .links-list {
+      color: white;
+      font-size: 1.08rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+    .links-list li {
+      margin-bottom: 0.8rem;
+    }
+    .links-list a {
+      color: #fff;
+      text-decoration: underline;
+      word-break: break-all;
+      transition: color 0.2s;
+    }
+    .links-list a:hover,
+    .links-list a:focus {
+      color: #2563eb;
+    }
     ::-webkit-scrollbar {
       width: 12px;
       background: #fff;
@@ -114,7 +150,6 @@
       scrollbar-color: #fff #fff;
     }
 
-    /* Mailto link bottom right */
     .mailto-link {
       position: fixed;
       right: 2rem;
@@ -128,10 +163,8 @@
     }
     .mailto-link:hover,
     .mailto-link:focus {
-      color: #2563eb; /* blue */
+      color: #2563eb;
     }
-
-    /* Cursor shadow */
     #cursor-shadow {
       position: fixed;
       pointer-events: none;
@@ -145,7 +178,6 @@
       transition: left 0.08s, top 0.08s;
       will-change: left, top;
     }
-
     @media (max-width: 800px) {
       .section {
         flex-direction: column;
@@ -186,6 +218,12 @@
         max-width: 95vw;
         font-size: 1rem;
         padding: 1.2rem 1rem 1.2rem 1rem;
+      }
+      .bottom-links-container {
+        position: static;
+        width: 100vw;
+        margin: 2rem 0 0 0;
+        padding: 0;
       }
       body {
         border: 2px solid white;
@@ -233,32 +271,26 @@
       </div>
     </div>
   </div>
-  <!-- Bottom section with horizontal line, visually identical except for the line -->
+  <!-- Bottom section: links only above the horizontal line -->
   <div class="section">
-    <div class="under-construction-text">
-      SITE UNDER CONSTRUCTION
-    </div>
-    <div class="side left">
-      <div class="english">
-        <strong>THE PINGPONG FAMILY</strong><br />
-        <p>We are not a club. We are not a team. We are a loosely knit group of people who love to play table tennis outdoors whenever we feel like it. No stress. No obligations.<br /><br />
-        We've just started, and our first table is by Ilen Church. It's free. It's open. It's for everyone. Come as you are, play with anyone, stay as long as you like.<br /><br />
-        No fees. No membership. Just people who like to play a little and have a chat. It's about laughter, fun, camaraderie, and the occasional overly hard serve.<br /><br />
-        We believe in small gatherings that build big things: friendship, belonging, and a great atmosphere.<br /><br />
-        Ping. Pong. People. Done.</p>
-      </div>
+    <div class="bottom-links-container">
+      <div class="links-title">Links:</div>
+      <ul class="links-list">
+        <li>
+          @pingpongfamily.trd: 
+          <a href="https://www.instagram.com/pingpongfamily.trd/" target="_blank" rel="noopener">https://www.instagram.com/pingpongfamily.trd/</a>
+        </li>
+        <li>
+          Pingpong Oslo: 
+          <a href="https://tv.nrk.no/program/KOID75005524" target="_blank" rel="noopener">https://tv.nrk.no/program/KOID75005524</a>
+        </li>
+        <li>
+          Lån av tur- og sportsutstyr (Trondheim): 
+          <a href="https://www.trondheim.kommune.no/tema/kultur-og-fritid/park-og-mark/lan-av-tur--og-sportsutstyr/" target="_blank" rel="noopener">https://www.trondheim.kommune.no/tema/kultur-og-fritid/park-og-mark/lan-av-tur--og-sportsutstyr/</a>
+        </li>
+      </ul>
     </div>
     <div class="horizontal-line"></div>
-    <div class="side right">
-      <div class="norwegian">
-        <strong>THE PINGPONG FAMILY</strong><br />
-        <p>Vi er ikke en klubb. Vi er ikke et lag. Vi er en løst sammenskrudd gjeng som digger å spille bordtennis ute når vi føler for det. Null stress. Null forpliktelser.<br /><br />
-        Vi har akkurat starta, og det første bordet vårt står ved Ilen kirke. Det er gratis. Det er åpent. Det er for alle. Kom som du er, spill med hvem som helst, bli så lenge du gidder.<br /><br />
-        Ingen kontingent. Ingen medlemskap. Bare folk som liker å spille litt og slå av en prat. Det handler om latter, tull, samhold, og en og annen altfor hard serve.<br /><br />
-        Vi tror på små møter som bygger store ting vennskap, tilhørighet og digg stemning. <br /><br />
-        Ping. Pong. Folk. Ferdig.</p>
-      </div>
-    </div>
   </div>
   <a href="mailto:pingpongfamily.trd@gmail.com" class="mailto-link">Feel free to drop us a ball</a>
   <div id="cursor-shadow"></div>
