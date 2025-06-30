@@ -91,8 +91,6 @@
       max-width: 600px;
       text-align: left;
     }
-
-    /* Bottom section links styling (like "norwegian" class) */
     .bottom-links-container {
       position: absolute;
       left: 0;
@@ -125,26 +123,18 @@
       align-items: flex-start;
       gap: 0.6rem;
     }
-    .link-label {
+    .link-label-link {
       font-weight: bold;
-      min-width: 150px;
-      white-space: nowrap;
-      flex-shrink: 0;
-      color: white;
-    }
-    .link-url {
       color: #fff;
       text-decoration: underline;
       word-break: break-all;
       transition: color 0.2s;
-      font-weight: normal;
+      font-size: 1.1rem;
     }
-    .link-url:hover,
-    .link-url:focus {
+    .link-label-link:hover,
+    .link-label-link:focus {
       color: #2563eb;
     }
-
-    /* Center mailto in the bottom section below the line */
     .mailto-link-bottom {
       position: absolute;
       left: 50%;
@@ -172,7 +162,6 @@
     .mailto-link-bottom a:focus {
       color: #2563eb;
     }
-
     .scroll-down-indicator {
       position: fixed;
       right: 2rem;
@@ -186,11 +175,24 @@
       justify-content: center;
       background: none;
       border: none;
+      /* Remove focus ring and outline */
       outline: none;
-      transition: background 0.2s;
+      box-shadow: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .scroll-down-indicator:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    .scroll-down-indicator:active {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    .scroll-down-indicator::-moz-focus-inner {
+      border: 0;
     }
     .scroll-down-indicator:hover,
-    .scroll-down-indicator:focus {
+    .scroll-down-indicator:focus-visible {
       background: rgba(37,99,235,0.18);
       border-radius: 50%;
     }
@@ -209,7 +211,6 @@
     .triangle.up {
       transform: rotate(180deg);
     }
-
     #cursor-shadow {
       position: fixed;
       pointer-events: none;
@@ -223,7 +224,6 @@
       transition: left 0.08s, top 0.08s;
       will-change: left, top;
     }
-
     ::-webkit-scrollbar {
       width: 12px;
       background: #fff;
@@ -240,7 +240,6 @@
       scrollbar-width: thin;
       scrollbar-color: #fff #fff;
     }
-
     @media (max-width: 800px) {
       .section {
         flex-direction: column;
@@ -367,16 +366,13 @@
     <div class="bottom-links-container">
       <div class="links-content">
         <div class="link-row">
-          <span class="link-label">@pingpongfamily.trd:</span>
-          <a class="link-url" href="https://www.instagram.com/pingpongfamily.trd/" target="_blank" rel="noopener">https://www.instagram.com/pingpongfamily.trd/</a>
+          <a class="link-label-link" href="https://www.instagram.com/pingpongfamily.trd/" target="_blank" rel="noopener">@pingpongfamily.trd</a>
         </div>
         <div class="link-row">
-          <span class="link-label">Pingpong Oslo:</span>
-          <a class="link-url" href="https://tv.nrk.no/program/KOID75005524" target="_blank" rel="noopener">https://tv.nrk.no/program/KOID75005524</a>
+          <a class="link-label-link" href="https://tv.nrk.no/program/KOID75005524" target="_blank" rel="noopener">Pingpong Oslo</a>
         </div>
         <div class="link-row">
-          <span class="link-label">Lån av tur- og sportsutstyr (Trondheim):</span>
-          <a class="link-url" href="https://www.trondheim.kommune.no/tema/kultur-og-fritid/park-og-mark/lan-av-tur--og-sportsutstyr/" target="_blank" rel="noopener">https://www.trondheim.kommune.no/tema/kultur-og-fritid/park-og-mark/lan-av-tur--og-sportsutstyr/</a>
+          <a class="link-label-link" href="https://www.trondheim.kommune.no/tema/kultur-og-fritid/park-og-mark/lan-av-tur--og-sportsutstyr/" target="_blank" rel="noopener">Lån av tur- og sportsutstyr (Trondheim)</a>
         </div>
       </div>
     </div>
@@ -386,7 +382,7 @@
     </div>
   </div>
   <!-- Scroll down/up triangle indicator -->
-  <button class="scroll-down-indicator" id="scroll-down-indicator" aria-label="Scroll down for more">
+  <button class="scroll-down-indicator" id="scroll-down-indicator" aria-label="Scroll down for more" tabindex="0">
     <span class="triangle" id="triangle">&#9660;</span>
   </button>
   <div id="cursor-shadow"></div>
@@ -415,11 +411,9 @@
         triangle.classList.remove('up');
       }
     }
-    // Detect scroll position for up/down logic
     function checkScrollPosition() {
       const scrollY = window.scrollY || window.pageYOffset;
       const vh = window.innerHeight;
-      // Find the vertical midpoint between sections
       const bottomSection = document.getElementById('bottom-section');
       const sectionTop = bottomSection.getBoundingClientRect().top + window.pageYOffset;
       if (scrollY + vh/2 >= sectionTop) {
@@ -438,6 +432,12 @@
     });
     window.addEventListener('scroll', checkScrollPosition);
     window.addEventListener('resize', checkScrollPosition);
+    // Remove default focus ring on mousedown for all buttons
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('mousedown', function(e) {
+        this.blur();
+      });
+    });
     // Initialize
     checkScrollPosition();
   </script>
