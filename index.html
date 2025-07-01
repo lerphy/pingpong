@@ -23,6 +23,9 @@
       width: 100%;
       background-color: #22c55e;
       font-family: Arial, sans-serif;
+      min-height: 100vh;
+      min-width: 100vw;
+      box-sizing: border-box;
     }
     body {
       box-sizing: border-box;
@@ -62,13 +65,16 @@
       flex: none;
       padding: 0;
       align-items: stretch;
+      /* Needed for Safari */
+      height: 100vh;
+      max-width: 50vw;
     }
-    /* Rotated video: contained and full-bleed in right half only */
+    /* Rotated video: perfectly clipped to right half */
     .rotated-video {
       position: absolute;
       top: 50%;
       left: 50%;
-      /* After rotation, width covers the container height, and height covers the width */
+      /* The trick: after rotation, width covers the container height, height covers the container width */
       width: 100vh;
       height: 50vw;
       min-width: unset;
@@ -80,6 +86,8 @@
       pointer-events: none;
       z-index: 1;
       display: block;
+      /* Hide any overflow for safety */
+      box-shadow: none;
     }
     .vertical-line {
       position: absolute;
