@@ -71,7 +71,7 @@
       max-width: none;
       max-height: none;
     }
-    /* Vertical line at video right edge, dynamically positioned */
+    /* Vertical line at center of section */
     .vertical-line {
       position: absolute;
       top: 0;
@@ -80,7 +80,6 @@
       height: 100vh;
       background-color: white;
       z-index: 3;
-      transition: left 0.2s;
       pointer-events: none;
     }
     /* Horizontal line in the bottom section */
@@ -438,28 +437,8 @@
     window.addEventListener('scroll', checkScrollPosition);
     window.addEventListener('resize', checkScrollPosition);
 
-    // Dynamically move the vertical line to where the video ends
-    function updateVerticalLine() {
-      const video = document.getElementById('pingpong-video');
-      const verticalLine = document.getElementById('vertical-line');
-      const videoSide = document.getElementById('video-side');
-      if (!video || !verticalLine || !videoSide) return;
-
-      // Get the video bounding box in the context of the .section
-      const sectionRect = videoSide.parentElement.getBoundingClientRect();
-      const videoRect = video.getBoundingClientRect();
-
-      // Calculate the distance from the left edge of the section to the right edge of the video
-      const videoRight = videoRect.right - sectionRect.left;
-      verticalLine.style.left = `${videoRight}px`;
-    }
-    window.addEventListener('resize', updateVerticalLine);
-    window.addEventListener('DOMContentLoaded', function() {
-      setTimeout(updateVerticalLine, 400); // Give video time to layout
-    });
-    // Also update after video loads/metadata
-    document.getElementById('pingpong-video').addEventListener('loadedmetadata', updateVerticalLine);
-    window.setTimeout(updateVerticalLine, 800);
+    // No longer move the vertical line with JS!
+    // Remove or comment out any JS that changes the left of #vertical-line
 
     // Remove default focus ring on mousedown for all buttons
     document.querySelectorAll('button').forEach(btn => {
