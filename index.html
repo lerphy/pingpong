@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://cdn.counter.dev/script.js" data-id="dad985f2-4cf5-45ef-983b-e17b014b5c75" data-utcoffset="1"></script>
   
-  <title>Site Under Construction</title>
+  <title>Ping Pong Family</title>
   <style>
     html, body {
       margin: 0;
@@ -52,7 +52,7 @@
       background-color: white;
       z-index: 1;
     }
-    .under-construction-text {
+    .title {
       position: absolute;
       top: 1.5rem;
       left: 1.5rem;
@@ -75,21 +75,72 @@
     }
     .side.left {
       justify-content: flex-start;
+      position: relative;
     }
     .english {
       color: white;
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       margin-left: 1.5rem;
       padding: 1.5rem 1.2rem 1.2rem 0;
       max-width: 600px;
       text-align: left;
     }
-    .norwegian {
+    /* Move the triangle to the side-left, vertically centered */
+    .scroll-down-indicator {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1002;
+      cursor: pointer;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .scroll-down-indicator:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    .scroll-down-indicator:active {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    .scroll-down-indicator::-moz-focus-inner {
+      border: 0;
+    }
+    .triangle {
+      display: block;
+      width: 28px;
+      height: 28px;
+      text-align: center;
+      font-size: 2.1rem;
       color: white;
-      font-size: 1.1rem;
-      padding: 1.5rem 1.2rem 1.2rem 1.2rem;
-      max-width: 600px;
-      text-align: left;
+      pointer-events: none;
+      user-select: none;
+      line-height: 28px;
+      transition: transform 0.4s cubic-bezier(.77,0,.18,1.09);
+    }
+    .triangle.up {
+      transform: rotate(180deg);
+    }
+    /* Style for the rotated video (remove round corners and rotate 90deg clockwise) */
+    .rotated-video {
+      max-width: 100%;
+      max-height: 80vh;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      border-radius: 0 !important;
+      transform: rotate(90deg);
+      /* To avoid cropping, use block and auto margin */
+      display: block;
+      margin: 0 auto;
+      background: black;
     }
     .bottom-links-container {
       position: absolute;
@@ -161,57 +212,6 @@
     .mailto-link-bottom a:focus {
       color: #2563eb;
     }
-    .scroll-down-indicator {
-      position: fixed;
-      right: 2rem;
-      bottom: 2rem;
-      z-index: 1002;
-      cursor: pointer;
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: none;
-      border: none;
-      /* Remove focus ring and outline */
-      outline: none;
-      box-shadow: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .scroll-down-indicator:focus {
-      outline: none !important;
-      box-shadow: none !important;
-    }
-    .scroll-down-indicator:active {
-      outline: none !important;
-      box-shadow: none !important;
-    }
-    .scroll-down-indicator::-moz-focus-inner {
-      border: 0;
-    }
-    /* Removed hover/focus-visible effect for the triangle button
-    .scroll-down-indicator:hover,
-    .scroll-down-indicator:focus-visible {
-      background: rgba(37,99,235,0.18);
-      border-radius: 50%;
-    }
-    */
-    .triangle {
-      display: block;
-      width: 28px;
-      height: 28px;
-      text-align: center;
-      font-size: 2.1rem;
-      color: white;
-      pointer-events: none;
-      user-select: none;
-      line-height: 28px;
-      transition: transform 0.4s cubic-bezier(.77,0,.18,1.09);
-    }
-    .triangle.up {
-      transform: rotate(180deg);
-    }
     #cursor-shadow {
       position: fixed;
       pointer-events: none;
@@ -254,7 +254,7 @@
       .horizontal-line {
         display: none;
       }
-      .under-construction-text {
+      .title {
         position: static;
         margin: 2rem auto 1.2rem auto;
         display: block;
@@ -311,10 +311,13 @@
         width: max-content;
       }
       .scroll-down-indicator {
-        right: 1rem;
+        left: 1rem;
+        right: auto;
         bottom: 1rem;
+        top: auto;
         width: 36px;
         height: 36px;
+        transform: none;
       }
       .triangle {
         width: 20px;
@@ -337,10 +340,13 @@
 <body>
   <!-- Top section with vertical line -->
   <div class="section" id="top-section">
-    <div class="under-construction-text">
+    <div class="title">
       SITE UNDER CONSTRUCTION
     </div>
     <div class="side left">
+      <button class="scroll-down-indicator" id="scroll-down-indicator" aria-label="Scroll down for more" tabindex="0">
+        <span class="triangle" id="triangle">&#9660;</span>
+      </button>
       <div class="english">
         <strong>THE PINGPONG FAMILY</strong><br />
         <p>Vi er ikke en klubb. Vi er ikke et lag. Vi er en løst sammenskrudd gjeng som digger å spille bordtennis ute når vi føler for det. Null stress. Null forpliktelser.<br/>
@@ -357,10 +363,9 @@
     </div>
     <div class="vertical-line"></div>
     <div class="side right">
-      <video src="pingpongfamily.mp4" loop autoplay muted playsinline style="max-width: 100%; max-height: 80vh; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.18);"></video>
+      <video class="rotated-video" src="pingpongfamily.mp4" loop autoplay muted playsinline></video>
     </div>
   </div>
-  <!-- Bottom section: links only above the horizontal line, mailto centered below -->
   <div class="section" id="bottom-section">
     <div class="bottom-links-container">
       <div class="links-content">
@@ -381,10 +386,6 @@
       <a href="mailto:pingpongfamily.trd@gmail.com">Feel free to drop us a ball</a>
     </div>
   </div>
-  <!-- Scroll down/up triangle indicator -->
-  <button class="scroll-down-indicator" id="scroll-down-indicator" aria-label="Scroll down for more" tabindex="0">
-    <span class="triangle" id="triangle">&#9660;</span>
-  </button>
   <div id="cursor-shadow"></div>
   <script>
     // Cursor shadow effect
