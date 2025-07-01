@@ -54,22 +54,21 @@
       padding: 0;
       min-width: 0;
     }
-    /* Video: left-aligned, fullbleed top/bottom, rotated 90deg */
+    /* Video: fill right side, rotated, can be cropped */
     .rotated-video {
       position: absolute;
-      left: 0;
-      top: 0;
-      height: 100vh;
-      width: auto;
-      border-radius: 0 !important;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-      transform: rotate(90deg);
+      left: 50%;
+      top: 50%;
+      width: 100vh;
+      height: 100vw;
+      transform: translate(-50%, -50%) rotate(90deg);
       object-fit: cover;
       background: black;
+      min-width: unset;
+      min-height: unset;
+      max-width: unset;
+      max-height: unset;
       display: block;
-      min-width: 0;
-      max-width: none;
-      max-height: none;
     }
     /* Vertical line at center of section */
     .vertical-line {
@@ -436,9 +435,6 @@
     });
     window.addEventListener('scroll', checkScrollPosition);
     window.addEventListener('resize', checkScrollPosition);
-
-    // No longer move the vertical line with JS!
-    // Remove or comment out any JS that changes the left of #vertical-line
 
     // Remove default focus ring on mousedown for all buttons
     document.querySelectorAll('button').forEach(btn => {
