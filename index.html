@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://cdn.counter.dev/script.js" data-id="dad985f2-4cf5-45ef-983b-e17b014b5c75" data-utcoffset="1"></script>
+  
   <title>Ping Pong Family</title>
   <style>
     html, body {
@@ -31,6 +32,37 @@
       box-sizing: border-box;
       overflow: hidden;
     }
+    .vertical-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 100vh;
+      background-color: white;
+      z-index: 1;
+    }
+    .horizontal-line {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100vw;
+      height: 2px;
+      background-color: white;
+      z-index: 1;
+    }
+    .title {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      color: white;
+      font-size: 1.25rem;
+      letter-spacing: 2px;
+      z-index: 2;
+      max-width: 90vw;
+      text-align: left;
+    }
     .side {
       flex: 1 1 0;
       display: flex;
@@ -46,54 +78,6 @@
       justify-content: flex-start;
       position: relative;
     }
-    .side.right {
-      justify-content: flex-start;
-      align-items: stretch;
-      position: relative;
-      overflow: hidden;
-      padding: 0;
-      min-width: 0;
-    }
-    /* Video: left-aligned, fullbleed top/bottom, rotated 90deg */
-    .rotated-video {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100vh;
-      width: auto;
-      border-radius: 0 !important;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-      transform: rotate(90deg);
-      object-fit: cover;
-      background: black;
-      display: block;
-      min-width: 0;
-      max-width: none;
-      max-height: none;
-    }
-    /* Vertical line at video right edge, dynamically positioned */
-    .vertical-line {
-      position: absolute;
-      top: 0;
-      left: 50vw;
-      width: 2px;
-      height: 100vh;
-      background-color: white;
-      z-index: 3;
-      transition: left 0.2s;
-      pointer-events: none;
-    }
-    .title {
-      position: absolute;
-      top: 1.5rem;
-      left: 1.5rem;
-      color: white;
-      font-size: 1.25rem;
-      letter-spacing: 2px;
-      z-index: 2;
-      max-width: 90vw;
-      text-align: left;
-    }
     .english {
       color: white;
       font-size: 0.9rem;
@@ -102,9 +86,9 @@
       max-width: 600px;
       text-align: left;
     }
-    /* Triangle: fixed to bottom left of viewport */
+    /* Move the triangle to the bottom left corner of .side.left */
     .scroll-down-indicator {
-      position: fixed;
+      position: absolute;
       left: 0.8rem;
       bottom: 0.8rem;
       z-index: 1002;
@@ -119,6 +103,7 @@
       outline: none;
       box-shadow: none;
       -webkit-tap-highlight-color: transparent;
+      /* Remove default transform if any */
       transform: none;
     }
     .scroll-down-indicator:focus {
@@ -146,6 +131,31 @@
     }
     .triangle.up {
       transform: rotate(180deg);
+    }
+    /* Video fullbleed top and bottom, rotated 90deg clockwise, no border radius */
+    .rotated-video {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 100vh;
+      width: auto;
+      min-width: 100%;
+      min-height: 100vh;
+      max-width: none;
+      max-height: none;
+      border-radius: 0 !important;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      transform: translateX(-50%) rotate(90deg);
+      object-fit: cover;
+      background: black;
+      display: block;
+    }
+    .side.right {
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 0;
     }
     .bottom-links-container {
       position: absolute;
@@ -280,6 +290,13 @@
         font-size: 1rem;
         padding: 1.2rem 1rem 1.2rem 1rem;
       }
+      .norwegian {
+        margin: 0 auto 1.5rem auto;
+        width: 90vw;
+        max-width: 95vw;
+        font-size: 1rem;
+        padding: 1.2rem 1rem 1.2rem 1rem;
+      }
       .bottom-links-container {
         position: static;
         width: 100vw;
@@ -326,6 +343,19 @@
         width: 32px;
         height: 32px;
       }
+      body {
+        border: 2px solid white;
+        min-height: 100vh;
+        min-width: 100vw;
+        box-sizing: border-box;
+      }
+      .rotated-video {
+        height: 70vw;
+        min-height: 60vw;
+        min-width: 100vw;
+        max-width: none;
+        max-height: 100vh;
+      }
     }
   </style>
 </head>
@@ -336,6 +366,9 @@
       Ping Pong Family
     </div>
     <div class="side left">
+      <button class="scroll-down-indicator" id="scroll-down-indicator" aria-label="Scroll down for more" tabindex="0">
+        <span class="triangle" id="triangle">&#9660;</span>
+      </button>
       <div class="english">
         <strong>THE PINGPONG FAMILY</strong><br />
         <p>Vi er ikke en klubb. Vi er ikke et lag. Vi er en løst sammenskrudd gjeng som digger å spille bordtennis ute når vi føler for det. Null stress. Null forpliktelser.<br/>
@@ -350,15 +383,11 @@
         Ping. Pong. People. Done.</p>
       </div>
     </div>
-    <div class="side right" id="video-side">
-      <video id="pingpong-video" class="rotated-video" src="pingpongfamily.mp4" loop autoplay muted playsinline></video>
+    <div class="vertical-line"></div>
+    <div class="side right">
+      <video class="rotated-video" src="pingpongfamily.mp4" loop autoplay muted playsinline></video>
     </div>
-    <div class="vertical-line" id="vertical-line"></div>
   </div>
-  <!-- Triangle button, floating in viewport bottom left -->
-  <button class="scroll-down-indicator" id="scroll-down-indicator" aria-label="Scroll down for more" tabindex="0">
-    <span class="triangle" id="triangle">&#9660;</span>
-  </button>
   <div class="section" id="bottom-section">
     <div class="bottom-links-container">
       <div class="links-content">
@@ -426,30 +455,6 @@
     });
     window.addEventListener('scroll', checkScrollPosition);
     window.addEventListener('resize', checkScrollPosition);
-
-    // Dynamically move the vertical line to where the video ends
-    function updateVerticalLine() {
-      const video = document.getElementById('pingpong-video');
-      const verticalLine = document.getElementById('vertical-line');
-      const videoSide = document.getElementById('video-side');
-      if (!video || !verticalLine || !videoSide) return;
-
-      // Get the video bounding box in the context of the .section
-      const sectionRect = videoSide.parentElement.getBoundingClientRect();
-      const videoRect = video.getBoundingClientRect();
-
-      // Calculate the distance from the left edge of the section to the right edge of the video
-      const videoRight = videoRect.right - sectionRect.left;
-      verticalLine.style.left = `${videoRight}px`;
-    }
-    window.addEventListener('resize', updateVerticalLine);
-    window.addEventListener('DOMContentLoaded', function() {
-      setTimeout(updateVerticalLine, 400); // Give video time to layout
-    });
-    // Also update after video loads/metadata
-    document.getElementById('pingpong-video').addEventListener('loadedmetadata', updateVerticalLine);
-    window.setTimeout(updateVerticalLine, 800);
-
     // Remove default focus ring on mousedown for all buttons
     document.querySelectorAll('button').forEach(btn => {
       btn.addEventListener('mousedown', function(e) {
