@@ -163,6 +163,8 @@
       background: transparent;
     }
     .bottom-top {
+      top: 1.5rem;
+      left: 1.5rem;
       flex-basis: 60%;
       flex-shrink: 0;
       flex-grow: 0;
@@ -172,6 +174,25 @@
       min-height: 120px;
       overflow-y: auto; /* enable vertical scroll if needed */
       overflow-x: hidden; /* prevent horizontal scroll */
+    }
+    /* Custom scrollbars for .bottom-top */
+    .bottom-top::-webkit-scrollbar {
+      width: 10px;
+      background: #E9F5DB;
+    }
+    .bottom-top::-webkit-scrollbar-thumb {
+      background: #773344;
+      border-radius: 8px;
+    }
+    .bottom-top::-webkit-scrollbar-thumb:hover {
+      background: #9CFFFA;
+    }
+    .bottom-top::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+    .bottom-top {
+      scrollbar-width: thin;
+      scrollbar-color: #773344 #E9F5DB;
     }
     .bottom-bottom {
       flex-basis: 40%;
@@ -239,7 +260,6 @@
       flex-direction: column;
       gap: 0.5rem;
       word-break: break-word; /* ensures long words/URLs wrap */
-      /* No flex-wrap needed on column layout */
     }
     .link-row {
       display: flex;
