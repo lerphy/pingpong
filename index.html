@@ -21,7 +21,7 @@
       padding: 0;
       height: 100%;
       width: 100%;
-      background-color: #22c55e;
+      background-color: #acf39d;
       font-family: Arial, sans-serif;
       min-height: 100vh;
       min-width: 100vw;
@@ -30,11 +30,12 @@
     body {
       box-sizing: border-box;
       overflow-y: auto;
+      color: #E85F5C;
     }
     .section {
       display: flex;
       height: 100vh;
-      border: 6px solid white;
+      border: 6px solid #773344;
       box-sizing: border-box;
       position: relative;
       overflow: hidden;
@@ -82,9 +83,9 @@
       position: absolute;
       top: 0;
       left: -3px;
-      width: 6px;
+      width: 3px; /* thinner than the rest */
       height: 100vh;
-      background-color: white;
+      background-color: #773344;
       z-index: 3;
       pointer-events: none;
     }
@@ -92,7 +93,7 @@
       position: absolute;
       top: 1.5rem;
       left: 1.5rem;
-      color: white;
+      color: #E85F5C;
       font-size: 1.25rem;
       letter-spacing: 2px;
       z-index: 4;
@@ -100,7 +101,7 @@
       text-align: left;
     }
     .english {
-      color: white;
+      color: #E85F5C;
       font-size: 0.9rem;
       margin-left: 1.5rem;
       padding: 1.5rem 1.2rem 1.2rem 0;
@@ -115,7 +116,7 @@
       transform: translateY(-50%);
       width: 100vw;
       height: 6px;
-      background-color: white;
+      background-color: #773344;
       z-index: 1;
     }
     .bottom-links-container {
@@ -131,7 +132,7 @@
       pointer-events: auto;
     }
     .links-content {
-      color: white;
+      color: #E85F5C;
       font-size: 1.1rem;
       padding: 1.5rem 1.2rem 1.2rem 1.2rem;
       max-width: 600px;
@@ -151,7 +152,7 @@
       gap: 0.6rem;
     }
     .link-label-link {
-      color: #fff;
+      color: #9CFFFA;
       text-decoration: underline;
       word-break: break-all;
       transition: color 0.2s;
@@ -159,7 +160,7 @@
     }
     .link-label-link:hover,
     .link-label-link:focus {
-      color: #2563eb;
+      color: #E85F5C;
     }
     .mailto-link-bottom {
       position: absolute;
@@ -174,7 +175,7 @@
       min-width: 220px;
     }
     .mailto-link-bottom a {
-      color: white;
+      color: #9CFFFA;
       text-decoration: underline;
       font-family: Arial, sans-serif;
       font-size: 1rem;
@@ -186,7 +187,7 @@
     }
     .mailto-link-bottom a:hover,
     .mailto-link-bottom a:focus {
-      color: #2563eb;
+      color: #E85F5C;
     }
     .scroll-down-indicator {
       position: fixed;
@@ -223,7 +224,7 @@
       height: 28px;
       text-align: center;
       font-size: 2.1rem;
-      color: white;
+      color: #E85F5C;
       pointer-events: none;
       user-select: none;
       line-height: 28px;
@@ -247,19 +248,19 @@
     }
     ::-webkit-scrollbar {
       width: 12px;
-      background: #fff;
+      background: #acf39d;
     }
     ::-webkit-scrollbar-thumb {
-      background: #fff;
+      background: #acf39d;
       border-radius: 6px;
-      border: 2px solid #ccc;
+      border: 2px solid #773344;
     }
     ::-webkit-scrollbar-track {
-      background: #fff;
+      background: #acf39d;
     }
     * {
       scrollbar-width: thin;
-      scrollbar-color: #fff #fff;
+      scrollbar-color: #acf39d #acf39d;
     }
     @media (max-width: 800px) {
       .section {
