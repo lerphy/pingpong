@@ -159,7 +159,6 @@
     }
     .bottom-top, .bottom-bottom {
       min-height: 40px;
-      overflow: visible; /* No scrollbars */
       position: relative;
       background: transparent;
     }
@@ -170,7 +169,9 @@
       background: none;
       justify-content: flex-start;
       transition: flex-basis 0.1s;
-      min-height: 120px; /* You can change this as desired */
+      min-height: 120px;
+      overflow-y: auto; /* enable vertical scroll if needed */
+      overflow-x: hidden; /* prevent horizontal scroll */
     }
     .bottom-bottom {
       flex-basis: 40%;
@@ -181,7 +182,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 120px; /* Set your minimum height here */
+      min-height: 120px;
     }
     .h-resizer {
       height: 10px;
@@ -211,16 +212,15 @@
     }
     .horizontal-line { display: none !important; }
     .bottom-links-container {
-      position: absolute;
-      left: 0;
-      top: 2.5rem;
-      width: 100vw;
+      position: relative;
+      width: 100%;
       z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: flex-start;
       pointer-events: auto;
+      box-sizing: border-box;
     }
     .links-content {
       color: #E85F5C;
@@ -237,23 +237,28 @@
       box-shadow: none;
       display: flex;
       flex-direction: column;
-      flex-wrap: wrap; /* Allows children to wrap if needed */
       gap: 0.5rem;
-      transition: font-size 0.2s, padding 0.2s;
+      word-break: break-word; /* ensures long words/URLs wrap */
+      /* No flex-wrap needed on column layout */
     }
     .link-row {
       display: flex;
-      flex-wrap: wrap;   /* Allows links in a row to wrap */
+      flex-wrap: wrap;
       align-items: flex-start;
       gap: 0.6rem;
       width: 100%;
+      word-break: break-word;
     }
     .link-label-link {
       color: #E85F5C;
       text-decoration: underline;
-      word-break: break-all;
       transition: color 0.2s;
       font-size: 1.1rem;
+      word-break: break-word;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      min-width: 0;
+      max-width: 100%;
     }
     .link-label-link:hover,
     .link-label-link:focus {
