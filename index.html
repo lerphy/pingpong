@@ -59,7 +59,7 @@
       background: none;
     }
     .side.right {
-      flex: 0 0 auto; /* width will match video width */
+      flex: 0 0 auto;
       padding: 0;
       background: black;
       height: 100vh;
@@ -76,10 +76,12 @@
       width: auto;
       max-width: 100vw;
       display: block;
-      object-fit: none; /* No cropping or scaling */
+      object-fit: none;
       background: black;
       z-index: 1;
       pointer-events: none;
+      /* Explicitly set rotation to 0 degrees */
+      transform: rotate(0deg) !important;
     }
     .vertical-line {
       position: absolute;
@@ -378,7 +380,7 @@
       </div>
     </div>
     <div class="side right" id="video-side">
-      <video id="pingpong-video" class="rotated-video" src="pingpongfamily.mp4" loop autoplay muted playsinline></video>
+      <video id="pingpong-video" class="rotated-video" src="pingpongfamily2.mp4" loop autoplay muted playsinline></video>
       <div class="vertical-line"></div>
     </div>
   </div>
@@ -397,7 +399,7 @@
           <a class="link-label-link" href="https://tv.nrk.no/program/KOID75005524" target="_blank" rel="noopener">Pingpong Oslo</a>
         </div>
         <div class="link-row">
-          <a class="link-label-link" href="https://www.trondheim.kommune.no/tema/kultur-og-fritid/park-og-mark/lan-av-tur--og-sportsutstyr/" target="_blank" rel="noopener">Lån av tur- og sportsutstyr i Trondheim
+          <a class="link-label-link" href="https://www.trondheim.kommune.no/tema/kultur-og-fritid/park-og-mark/lan-av-tur--og-sportsutstyr/" target="_blank" rel="noopener">Lån av tur- og sportsutstyr</a>
         </div>
       </div>
     </div>
