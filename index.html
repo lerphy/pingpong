@@ -161,22 +161,19 @@
     }
     .bottom-top, .bottom-bottom {
       min-height: 40px;
+      overflow: visible; /* No scrollbars */
+      position: relative;
+      background: transparent;
     }
     .bottom-top {
       flex-basis: 60%;
       flex-shrink: 0;
       flex-grow: 0;
-      overflow: auto;
-      position: relative;
-      background: transparent;
     }
     .bottom-bottom {
       flex-basis: 40%;
       flex-shrink: 0;
       flex-grow: 0;
-      overflow: auto;
-      position: relative;
-      background: transparent;
       display: flex;
       align-items: flex-start;
       justify-content: center;
@@ -207,9 +204,7 @@
     .h-resizer.active .h-resizer-bar {
       background: #9CFFFA;
     }
-    /* Remove old .horizontal-line if present */
     .horizontal-line { display: none !important; }
-
     .bottom-links-container {
       position: absolute;
       left: 0;
@@ -431,7 +426,9 @@
 <body>
   <div class="section" id="top-section">
     <div class="title">
-      <strong><p>Ping</p><p>Pong</p><p>Family</p></strong>
+      <strong>Ping<br>
+      Pong<br>
+      Family</strong>
     </div>
     <div class="side left">
       <div class="english">
