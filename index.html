@@ -204,6 +204,33 @@
       box-sizing: border-box;
       background: none;
     }
+    /* Horizontal resizer for map/links in bottom-top */
+    .v-resizer {
+      width: 10px;
+      background: transparent;
+      cursor: col-resize;
+      z-index: 12;
+      position: relative;
+      height: 100%;
+      flex-shrink: 0;
+      user-select: none;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+    }
+    .v-resizer-bar {
+      width: 6px;
+      height: 100%;
+      background: var(--main-border);
+      border-radius: 0;
+      margin: auto 0;
+      transition: background 0.2s;
+    }
+    .v-resizer.active .v-resizer-bar {
+      background: #9CFFFA;
+    }
     .map-container {
       position: relative;
       width: 640px; /* double size */
@@ -212,10 +239,8 @@
       height: 100%;
       min-height: 220px;
       z-index: 1;
-      border-left: 4px solid var(--main-border);
+      border-left: none;
       border-right: none;
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
       box-shadow: -1px 0 6px rgba(0,0,0,0.08);
       background: var(--leaflet-bg);
       flex-shrink: 0;
@@ -302,7 +327,6 @@
       margin: 0 auto;
       display: block;
       width: max-content;
-      /* Remove any previous margin/padding */
     }
     .mailto-link-bottom a:hover,
     .mailto-link-bottom a:focus {
@@ -433,7 +457,8 @@
         border: none;
       }
       .resizer, .resizer-bar,
-      .h-resizer, .h-resizer-bar {
+      .h-resizer, .h-resizer-bar,
+      .v-resizer, .v-resizer-bar {
         display: none !important;
       }
       .title {
@@ -633,7 +658,7 @@
   <div class="section bottom-section" id="bottom-section">
     <div class="bottom-flex">
       <div class="bottom-top" id="bottom-top">
-        <div class="bottom-links-container">
+        <div class="bottom-links-container" id="bottom-links-container">
           <div class="links-content">
             <strong>Links</strong><br>
             <div class="link-row">
@@ -647,7 +672,10 @@
             </div>
           </div>
         </div>
-        <div class="map-container">
+        <div class="v-resizer" id="v-resizer">
+          <div class="v-resizer-bar"></div>
+        </div>
+        <div class="map-container" id="map-container">
           <div id="map"></div>
         </div>
       </div>
@@ -726,6 +754,41 @@
       }
     });
 
+    // --- Vertical resizer between links and map in bottom-top ---
+    const vResizer = document.getElementById('v-resizer');
+    const bottomLinks = document.getElementById('bottom-links-container');
+    const mapContainer = document.getElementById('map-container');
+    let vDragging = false;
+
+    vResizer.addEventListener('mousedown', function(e) {
+      vDragging = true;
+      vResizer.classList.add('active');
+      document.body.style.cursor = 'col-resize';
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', function(e) {
+      if (!vDragging) return;
+      const parent = document.getElementById('bottom-top');
+      const rect = parent.getBoundingClientRect();
+      let percent = ((e.clientX - rect.left) / rect.width) * 100;
+      // Assume map min width 160px and links min width 160px
+      const minLinksPx = 160, minMapPx = 160;
+      const minLinksPercent = (minLinksPx / rect.width) * 100;
+      const maxLinksPercent = 100 - (minMapPx / rect.width) * 100;
+      percent = Math.max(minLinksPercent, Math.min(maxLinksPercent, percent));
+      bottomLinks.style.flexBasis = percent + "%";
+      mapContainer.style.width = (100 - percent) + "%";
+    });
+
+    window.addEventListener('mouseup', function() {
+      if (vDragging) {
+        vDragging = false;
+        vResizer.classList.remove('active');
+        document.body.style.cursor = '';
+      }
+    });
+
     // Cursor shadow effect
     document.addEventListener('mousemove', function(e) {
       var shadow = document.getElementById('cursor-shadow');
@@ -794,11 +857,8 @@
       attribution: '© OpenStreetMap'
     }).addTo(map);
 
-    // Marker for Ilen kirke table
-    L.marker([63.4331, 10.3835])
-      .addTo(map)
-      .bindPopup('Ping Pong Family Table<br>Ilen kirke')
-      .openPopup();
+    // Marker for Ilen kirke table - no popup, just a pin
+    L.marker([63.4331, 10.3835]).addTo(map);
   </script>
 </body>
 </html>
