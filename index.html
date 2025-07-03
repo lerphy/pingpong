@@ -770,14 +770,18 @@
       if (!vDragging) return;
       const parent = document.getElementById('bottom-top');
       const rect = parent.getBoundingClientRect();
+
+      // Match JS minMapPx to .map-container min-width (320px)
+      const minLinksPx = 160;
+      const minMapPx = 320;
+      let minLinksPercent = (minLinksPx / rect.width) * 100;
+      let maxLinksPercent = 100 - (minMapPx / rect.width) * 100;
       let percent = ((e.clientX - rect.left) / rect.width) * 100;
-      // Match minMapPx to .map-container min-width
-      const minLinksPx = 160, minMapPx = 320;
-      const minLinksPercent = (minLinksPx / rect.width) * 100;
-      const maxLinksPercent = 100 - (minMapPx / rect.width) * 100;
       percent = Math.max(minLinksPercent, Math.min(maxLinksPercent, percent));
+
       bottomLinks.style.flexBasis = percent + "%";
       mapContainer.style.width = (100 - percent) + "%";
+      mapContainer.style.minWidth = minMapPx + "px";
     });
 
     window.addEventListener('mouseup', function() {
