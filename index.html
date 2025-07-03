@@ -204,7 +204,6 @@
       box-sizing: border-box;
       background: none;
     }
-    /* Horizontal resizer for map/links in bottom-top */
     .v-resizer {
       width: 10px;
       background: transparent;
@@ -233,7 +232,7 @@
     }
     .map-container {
       position: relative;
-      width: 640px; /* double size */
+      width: 640px;
       min-width: 320px;
       max-width: 100vw;
       height: 100%;
@@ -254,7 +253,7 @@
     }
     #map {
       width: 100%;
-      height: 320px; /* <--- THE ONLY FIX NEEDED --- */
+      height: 320px;
       min-height: 220px;
       min-width: 320px;
       max-width: 100vw;
@@ -500,7 +499,7 @@
         width: 100vw;
         min-width: 0;
         max-width: 100vw;
-        height: 220px;
+        height: 220px !important;
         border: none;
         border-radius: 0;
         margin-bottom: 0.5rem;
@@ -772,8 +771,8 @@
       const parent = document.getElementById('bottom-top');
       const rect = parent.getBoundingClientRect();
       let percent = ((e.clientX - rect.left) / rect.width) * 100;
-      // Assume map min width 160px and links min width 160px
-      const minLinksPx = 160, minMapPx = 160;
+      // Match minMapPx to .map-container min-width
+      const minLinksPx = 160, minMapPx = 320;
       const minLinksPercent = (minLinksPx / rect.width) * 100;
       const maxLinksPercent = 100 - (minMapPx / rect.width) * 100;
       percent = Math.max(minLinksPercent, Math.min(maxLinksPercent, percent));
