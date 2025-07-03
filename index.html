@@ -266,6 +266,12 @@
       padding: 0;
       background: var(--leaflet-bg);
     }
+    /* -- ENFORCE A HARD HEIGHT FOR MAP IF FLEX BREAKS -- */
+    @media (min-width: 0) {
+      #map {
+        height: 300px;
+      }
+    }
     .links-content {
       color: var(--highlight);
       font-size: 1.1rem;
